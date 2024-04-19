@@ -23,6 +23,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')), # link to accounts urls
+    path("ckeditor5/", include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('about', TemplateView.as_view(template_name='about.html'), name='about'),
 ]
