@@ -1,0 +1,78 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .quiz-content {
+            margin: 2rem 0;
+        }
+        .quiz-question {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .quiz-options {
+            margin-bottom: 1rem;
+        }
+        .quiz-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+        .quiz-button:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-content">
+            <div class="quiz-question">What is the capital of France?</div>
+            <div class="quiz-options">
+                <input type="radio" id="option1" name="quiz" value="a">
+                <label for="option1">London</label><br>
+                <input type="radio" id="option2" name="quiz" value="b">
+                <label for="option2">Paris</label><br>
+                <input type="radio" id="option3" name="quiz" value="c">
+                <label for="option3">Berlin</label><br>
+                <input type="radio" id="option4" name="quiz" value="d">
+                <label for="option4">Madrid</label>
+            </div>
+            <button class="quiz-button" onclick="checkAnswer()">Submit Answer</button>
+            <div id="answer-feedback"></div>
+        </div>
+    </div>
+    <script>
+        function checkAnswer() {
+            var selectedAnswer = document.querySelector('input[name="quiz"]:checked');
+            if (!selectedAnswer) {
+                document.getElementById('answer-feedback').innerHTML = 'Please select an answer.';
+                return;
+            }
+
+            var correctAnswer = 'b'; // The correct answer
+            if (selectedAnswer.value === correctAnswer) {
+                document.getElementById('answer-feedback').innerHTML = '<span class="correct-answer">Correct! Paris is the capital of France.</span>';
+            } else {
+                document.getElementById('answer-feedback').innerHTML = '<span class="incorrect-answer">Incorrect.</span>';
+            }
+        }
+    </script>
+</body>
+</html>

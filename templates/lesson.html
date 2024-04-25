@@ -1,0 +1,50 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lesson</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .lesson-content {
+            margin: 2rem 0;
+        }
+        .complete-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+        .complete-button:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">{{ lesson.title }}</h1>
+        <div class="lesson-content">
+            <p>{{ lesson.content }}</p>
+        </div>
+        <button class="complete-button" onclick="completeLesson()">Complete Lesson</button>
+    </div>
+    <script>
+        function completeLesson() {
+            // Add code here to handle lesson completion and award points
+            alert('Lesson completed! Points awarded.');
+        }
+    </script>
+</body>
+</html>

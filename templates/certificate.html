@@ -1,0 +1,48 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!-- certificate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Certificate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .certificate-content {
+            margin: 2rem 0;
+            border: 2px solid #007bff;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 15px;
+        }
+        .certificate-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .certificate-name {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .certificate-date {
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="certificate-content">
+            <div class="certificate-title">Certificate of Completion</div>
+            <div class="certificate-name">{{ user.name }}</div>
+            <div class="certificate-date">{{ certificate.issue_date }}</div>
+        </div>
+    </div>
+</body>
+</html>

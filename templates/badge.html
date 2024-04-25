@@ -1,0 +1,40 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Badge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .badge-content {
+            margin: 2rem 0;
+        }
+        .badge-image {
+            width: 100px;
+            height: 100px;
+        }
+        .badge-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        .badge-description {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="badge-content text-center">
+            <img class="badge-image" src="{{ badge.image_url }}" alt="Badge Image">
+            <div class="badge-title">{{ badge.title }}</div>
+            <p class="badge-description">{{ badge.description }}</p>
+        </div>
+    </div>
+</body>
+</html>
