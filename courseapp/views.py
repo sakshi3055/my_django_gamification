@@ -67,3 +67,7 @@ def certificate(request):
 def quizes(request):
     quizzes = Quiz.objects.all()
     return render(request, 'quizes.html', {'quizzes': quizzes})
+
+@login_required
+def courses(request):
+    return render(request, 'courses.html')
