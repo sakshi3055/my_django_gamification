@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from . forms import LessonForm, QuizForm, BadgeForm
 from django.contrib.auth.decorators import login_required
@@ -69,5 +70,5 @@ def quizes(request):
     return render(request, 'quizes.html', {'quizzes': quizzes})
 
 @login_required
-def courses(request):
-    return render(request, 'courses.html')
+def course_details(request):
+    return render(request, 'course-details.html')

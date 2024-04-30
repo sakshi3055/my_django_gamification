@@ -2,39 +2,161 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Badge</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Badge Template</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
+      /* Custom CSS for the digital badge template */
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
+      }
+      
+      .badge-card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      
+      .badge-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .badge-image {
+        width: 50%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      
+      .badge-details {
+        padding: 20px;
+      }
+      
+      .badge-title {
+        color: #333;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      
+      .badge-description {
+        color: #666;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+      
+      .badge-category {
+        background-color: #ffc107;
+        color: #343a40;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+      
+      .badge-earned {
+        background-color: #28a745;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+      
+      .badge-requirements {
+        margin-top: 15px;
+      }
+  
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .badge-card {
+          margin-bottom: 20px;
         }
-        .badge-content {
-            margin: 2rem 0;
-        }
-        .badge-image {
-            width: 100px;
-            height: 100px;
-        }
-        .badge-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 1rem;
-        }
-        .badge-description {
-            font-size: 18px;
-        }
+      }
     </style>
-</head>
+  </head>
+  
 <body>
-    <div class="container">
-        <div class="badge-content text-center">
-            <img class="badge-image" src="{{ badge.image_url }}" alt="Badge Image">
-            <div class="badge-title">{{ badge.title }}</div>
-            <p class="badge-description">{{ badge.description }}</p>
+  
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card badge-card">
+        <!-- Dynamic badge image fetched from Django backend -->
+        <img src="/static/img/badge1.png" class="card-img-top badge-image" alt="Badge Image">
+        <div class="card-body badge-details">
+          <!-- Dynamic badge category -->
+          <span class="badge-category">Category</span>
+          <!-- Dynamic badge title -->
+          <h5 class="card-title badge-title">Digital Badge Title</h5>
+          <!-- Dynamic badge description -->
+          <p class="card-text badge-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec odio ipsum. Integer laoreet massa in magna dapibus, ut scelerisque justo varius.</p>
+          <!-- Badge earned status -->
+          <span class="badge-earned">Earned</span>
+          <div class="badge-requirements">
+            <!-- Dynamic badge requirements -->
+            <p class="badge-requirement-item">Requirement 1: Complete Lesson 1</p>
+            <p class="badge-requirement-item">Requirement 2: Score 80% or higher on Quiz 1</p>
+          </div>
         </div>
+      </div>
+      <!-- Badge customization form -->
+      <form class="badge-customization-form mt-4">
+        <div class="mb-3">
+          <label for="badgeShape" class="form-label">Badge Shape</label>
+          <select class="form-select" id="badgeShape">
+            <option selected>Choose...</option>
+            <option value="circle">Circle</option>
+            <option value="square">Square</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="badgeColor" class="form-label">Badge Color</label>
+          <input type="color" class="form-control" id="badgeColor">
+        </div>
+        <div class="mb-3">
+          <label for="badgeSize" class="form-label">Badge Size</label>
+          <!-- Dynamic badge size -->
+          <input type="range" class="form-range" min="10" max="150" id="badgeSize">
+        </div>
+        <button type="submit" class="btn btn-primary">Apply Customization</button>
+      </form>
+      <div class="badge-example">
+        <h5>Badge Examples</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <img src="https://via.placeholder.com/150" alt="Badge Example 1">
+          </div>
+          <div class="col-md-4">
+            <img src="https://via.placeholder.com/150" alt="Badge Example 2">
+          </div>
+          <div class="col-md-4">
+            <img src="https://via.placeholder.com/150" alt="Badge Example 3">
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+<script>
+    // JavaScript to handle badge size customization
+    const badgeImage = document.querySelector('.badge-image');
+    const badgeSizeInput = document.getElementById('badgeSize');
+    
+    badgeSizeInput.addEventListener('input', function() {
+      const newSize = `${this.value}px`;
+      badgeImage.style.height = newSize;
+    });
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

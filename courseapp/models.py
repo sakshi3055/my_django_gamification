@@ -18,9 +18,10 @@ class Lesson(models.Model):
     points = models.IntegerField()
     level = models.CharField(max_length=1, choices=LEVEL_CHOICES)
     image = models.ImageField(upload_to='courseapp/')
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.title
     
 
 class Badge(models.Model):
@@ -44,9 +45,8 @@ class Quiz(models.Model):
     option4 = models.CharField(max_length=255)
     correct_answer = models.CharField(max_length=255)
     image = models.ImageField(upload_to='courseapp/')
+    completed = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.name
-    
-
-
