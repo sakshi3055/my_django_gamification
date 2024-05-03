@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-+=1^wzt^zl!2yoltui!v8*zz*l(+e@g96b(*64uo0(_+^&w6(c'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't  n with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -178,7 +178,7 @@ CKEDITOR_5_CONFIGS = {
         ],
     },
     "extends": {
-        "language": "ru",
+        "language": "en",
         "blockToolbar": [
             "paragraph",
             "heading1",

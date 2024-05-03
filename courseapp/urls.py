@@ -3,19 +3,16 @@ from . import views
 
 urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard'),
-    path('lesson', views.lesson, name='lesson'),
-    path('badge', views.badge, name='badge'),
-    path('certificate', views.certificate, name='certificate'),
-    path('quizes', views.quizes, name='quizes'),
-    path('course-details', views.course_details, name='course-details'),
+    path('lesson/list', views.lesson_list, name='lesson'),
+    path('lesson/<int:id>/view', views.lesson_view, name='lesson_view'),
+    path('lesson/<int:id>/completed', views.lesson_completed, name='lesson_completed'),
+    path('lessons/completed', views.completed_lessons, name='completed_lessons'),
+    path('lesson/<int:lid>/q/<int:qid>/view', views.quiz_view, name='quiz'),
+    path('lesson/<int:lid>/q/<int:qid>/completed', views.quiz_completed, name='quiz_completed'),
+    path('quizes/<int:lid>/list', views.lesson_quiz_view, name='lesson_quizzes'),
+    path('badge/list', views.badge_list, name='badges'),
+    path('badge/collected', views.badges_collected, name='badges_collected'),
+    path('badge/<int:id>/view', views.badge_view, name='badge_view'),
+    path('certificate', views.certificate_view, name='certificate')
 ]
 
-api_urlpatterns = [
-    path('api/dashboard', views.dashboard, name='api_dashboard'),
-    path('api/lesson', views.lesson, name='api_lesson'),
-    path('api/badge', views.badge, name='api_badge'),
-    path('api/certificate', views.certificate, name='api_certificate'),
-    path('api/quizes', views.quizes, name='api_quizes'),
-    path('api/course-details', views.course_details, name='api_course-details'),
-   
-]

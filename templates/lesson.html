@@ -51,7 +51,7 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html" class="">Home</a></li>
+          <li><a href="{% url 'home' %}" class="">Home</a></li>
           <li class="dropdown has-dropdown"><a href="#"><span>Lesson List</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Python</a></li>
@@ -80,14 +80,6 @@
           </div>
         </div>
       </div>
-      <nav class="breadcrumbs">
-        <div class="container">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Lessons</li>
-          </ol>
-        </div>
-      </nav>
     </div><!-- End Page Title -->
 
     <!-- Courses List Section -->
@@ -103,11 +95,10 @@
               <div class="course-content">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <p class="category">Web Development</p>
-                  <p class="price">$169</p>
                 </div>
 
                 <h3><a href="{% url 'course-details' %}">PYTHON</a></h3>
-                <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
+                <p class="description">Python is a computer programming language often used to build websites and software, automate tasks, and analyze data.</p>
                 <div class="trainer d-flex justify-content-between align-items-center">
                 </div>
               </div>
@@ -120,7 +111,6 @@
               <div class="course-content">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <p class="category">Marketing</p>
-                  <p class="price">$250</p>
                 </div>
                 <h3><a href="{% url 'course-details' %}">JAVA</a></h3>
                 <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
@@ -136,7 +126,6 @@
               <div class="course-content">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <p class="category">Content</p>
-                  <p class="price">$180</p>
                 </div>
 
                 <h3><a href="{% url 'course-details' %}">C++</a></h3>
