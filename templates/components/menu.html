@@ -15,9 +15,8 @@
         <li><a href="{% url 'about' %}">About</a></li>
         {% if user.is_authenticated %}
         <li><a href="{% url 'lesson' %}">Lesson</a></li>
-        <li><a href="{% url 'badge' %}">Badge</a></li>
         <li><a href="{% url 'certificate' %}">Certificate</a></li>
-        <li><a href="{% url 'quizes' %}">Quiz</a></li>
+        
        
 
         {% endif %}
