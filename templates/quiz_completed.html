@@ -5,12 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Completed Lessons</title>
+    <title>Quiz Completed</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-nrHDBmIBoOzC1vB5vPmTrMReOUqEoUASt/tK9iD8BT+44lF/Z4O5xgBoOQvj5Aqz" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
-    <!-- Professional CSS -->
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -39,19 +37,9 @@
             color: #333;
         }
 
-        .list-group-item {
+        .card-text {
             font-size: 18px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            background-color: #f8f9fa;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .list-group-item:hover {
-            background-color: #e9ecef;
-            cursor: pointer;
+            color: #555;
         }
 
         .btn {
@@ -74,20 +62,17 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Completed Lessons</h2>
-                {% if lessons %}
-                    <ul class="list-group">
-                        {% for lesson in lessons %}
-                            <li class="list-group-item">{{ lesson.title }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No lessons completed yet.</p>
-                {% endif %}
-                <a href="{% url 'dashboard' %}" class="btn btn-primary mt-3">Go to Dashboard</a>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Quiz Completed</h2>
+                        <p class="card-text">Congratulations! You have successfully completed the quiz.</p>
+                        <p class="card-text">Your score: {{ score }}</p>
+                        <a href="{% url 'lesson_quizzes' lesson_id %}" class="btn btn-primary mt-3">Back to Lesson Quizzes</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
