@@ -20,4 +20,4 @@ class BadgeForm(forms.ModelForm):
 class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
-        fields = ['points', 'lesson', 'question', 'option1', 'option2', 'option3', 'option4', 'correct_answer', 'image', 'completed']
+        fields = ['points', 'lesson', 'question', 'option1', 'option2', 'option3', 'option4', 'correct_answer', 'completed']

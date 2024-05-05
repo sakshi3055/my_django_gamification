@@ -44,7 +44,6 @@ class Quiz(models.Model):
     option4 = models.CharField(max_length=255)
     correct_answer = models.CharField(max_length=255)
     points = models.IntegerField(default=10)
-    image = models.ImageField(upload_to='courseapp/')
     completed = models.BooleanField(default=False)
     badge = models.OneToOneField(Badge, on_delete=models.CASCADE, null=True, blank=True)
 
