@@ -28,7 +28,7 @@
             <ul>
                 <li> <a href="{% url 'slogin' %}">Login</a></li>
                 <li><a href="{% url 'sregister' %}">Register</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>                          
             </ul>
         </li>
         {% else %}
@@ -43,7 +43,7 @@
                 <li> <a href="{% url 'dashboard' %}">Dashboard</a></li>
                 <li> <a href="{% url 'create_profile' %}">Profile</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>                          
             </ul>
         </li>
         {% endif %}
