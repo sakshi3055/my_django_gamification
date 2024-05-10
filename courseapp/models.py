@@ -11,7 +11,7 @@ class Badge(models.Model):
     image = models.ImageField(upload_to='courseapp/')
 
     def __str__(self):
-        return self.name
+        return self.image.url
 
 class Lesson(models.Model):
     LEVEL_CHOICES = [

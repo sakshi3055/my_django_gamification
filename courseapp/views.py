@@ -39,6 +39,9 @@ def lesson_list(request):
     lessons = Lesson.objects.all()
     user = request.user
     completed_lessons = LessonCompletion.objects.filter(user=user).values_list('lesson', flat=True) # get all completed lessons
+    for lession in lessons:
+        if lession.id in completed_lessons:
+            lession.completed = True
     ctx = {
         'lessons': lessons,
         'completed_lessons': completed_lessons
@@ -48,8 +51,47 @@ def lesson_list(request):
 @login_required
 def lesson_view(request, id):
     lesson = get_object_or_404(Lesson, id=id)
+    # get quiz for the chapter
+    quizzes = Quiz.objects.filter(lesson=lesson)
+    for quiz in quizzes:
+        try:
+            QuizCompletion.objects.get(user=request.user, quiz=quiz)
+            quiz.completed = True
+        except QuizCompletion.DoesNotExist:
+            quiz.completed = False
+    # total points from completed quiz
+    total_points = 0
+    for quiz in quizzes:
+        if quiz.completed:
+            total_points += quiz.points
+    # add lesson to completed if user has completed it and all quizzes are attempted
+    if request.method == "POST":
+        quizzes_completed = 0
+        for quiz in quizzes:
+            if quiz.completed:
+                quizzes_completed += 1
+        if quizzes_completed == quizzes.count():
+            completion = LessonCompletion.objects.create(user=request.user, lesson=lesson)
+            completion.save()
+            # assign badge if any
+            if lesson.badge:
+                badge = BadgeAssignment.objects.create(user=request.user, badge=lesson.badge)
+                badge.save()
+            # assign quiz badge if any
+            for quiz in quizzes:
+                if quiz.badge and quiz.completed:
+                    badge = BadgeAssignment.objects.create(user=request.user, badge=quiz.badge)
+                    badge.save()
+
+            messages.success(request, 'Lesson marked as completed')
+            return redirect('lesson')
+        else:
+            messages.error(request, 'You have not completed all quizzes for this lesson')
+            return redirect('lesson_view', id)
     ctx = {
-        'lesson': lesson
+        'lesson': lesson,
+        'quizzes': quizzes,
+        'total_points': total_points
     }
     return render(request, 'lesson_view.html', ctx)
 
@@ -99,8 +141,18 @@ def lesson_quiz_view(request, lid):
 # single quiz view
 @login_required
 def quiz_view(request, lid, qid):
+    # if quiz is not attempted, show the quiz
+    if QuizCompletion.objects.filter(user=request.user, quiz__id=qid).exists():
+        messages.error(request, 'Quiz already completed')
+        return redirect('lesson_view', lid)
     lesson = get_object_or_404(Lesson, id=lid)
     quiz = get_object_or_404(Quiz, id=qid)
+    if request.method == 'POST':
+        print(request.POST)
+        
+        QuizCompletion.objects.create(user=request.user, quiz=quiz, score=quiz.points)
+        return redirect('lesson_view', lid)
+
     ctx = {
         'lesson': lesson,
         'quiz': quiz
