@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Badge Details</title>
+    <title>User Progress</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -43,25 +43,36 @@
          }
         </style>
 </head>
-<body>
+  <body>
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="card-title">Badge Details</h2>
-                        <p class="badge-info">Title: {{ badge.title }}</p>
-                        <p class="badge-info">Description: {{ badge.description }}</p>
-                        {% if badge.lesson %}
-                        <p class="badge-info">Associated Lesson: {{ badge.lesson.title }}</p>
-                        {% endif %}
-                        {% if badge.quiz %}
-                        <p class="badge-info">Associated Quiz: {{ badge.quiz.title }}</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h1>Your Progress</h1>
+
+        <h2 class="mt-4">Completed Lessons</h2>
+        <ul class="list-group">
+        {% for lesson in completed_lessons %}
+            <li class="list-group-item">{{ lesson.title }}</li>
+        {% empty %}
+            <li class="list-group-item">You have not completed any lessons yet.</li>
+        {% endfor %}
+        </ul>
+
+        <h2 class="mt-4">Completed Quizzes</h2>
+        <ul class="list-group">
+        {% for quiz in completed_quizzes %}
+            <li class="list-group-item">{{ quiz.title }}</li>
+        {% empty %}
+            <li class="list-group-item">You have not completed any quizzes yet.</li>
+        {% endfor %}
+        </ul>
+
+        <h2 class="mt-4">Earned Badges</h2>
+        <ul class="list-group">
+        {% for badge in earned_badges %}
+            <li class="list-group-item">{{ badge.title }}</li>
+        {% empty %}
+            <li class="list-group-item">You have not earned any badges yet.</li>
+        {% endfor %}
+        </ul>
     </div>
 
     {% include 'components/footer.html' %}

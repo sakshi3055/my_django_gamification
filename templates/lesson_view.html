@@ -94,75 +94,67 @@
         </div><!-- End Page Title -->
 
         <!-- Courses Course Details Section -->
-        <section id="courses-course-details" class="courses-course-details section">
-
-            <div class="container" data-aos="fade-up">
-                <div class="card">
-                    <div class="card-header">
-                       
-                        {% if lesson.badge %}
-                        <p class="card-text">
-                            <div class="d-flex gap-3 justify-content-between align-items-center">
-                                <div class="card ">
-                                    <div class="card-body">
-                                        <i class="bi bi-award-fill"></i> Get {{lesson.points}} points
-                                    </div> 
-                                </div>
+               <section id="courses-course-details" class="courses-course-details section py-5">
+                    <div class="container" data-aos="fade-up">
+                     <div class="card border-primary mb-3">
+                      <div class="card-header bg-primary text-white">
+                         {% if lesson.badge %}
+                             <div class="d-flex gap-3 justify-content-between align-items-center">
+                               <div class="card border-success">
+                                 <div class="card-body">
+                                      <i class="bi bi-award-fill text-success"></i> Get {{lesson.points}} points
+                                </div> 
+                              </div>
                                 <a href="{% url 'badge_view' id=lesson.badge.id %}">
-                                    <img src="{{ lesson.badge.image.url }}" alt="{{ lesson.badge.title }}"
-                                        style="width: 80px; height:80px;" class="rounded-circle">
-                                </a>
-                                <span>
-                                    Complete this chapter to get the badge
-                                </span>
-                            </div>
-                        </p>
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        {{lesson.content|safe}}
-                    </div>
-                    <div class="card-footer">
-                        <p class="card-text">Quizzes:</p>
-                            {% for quiz in quizzes %}
-                                
-                                {% if quiz.completed %}
-                                
-                                {% else %}
-                                <a href="{% url 'quiz_view' lid=lesson.id qid=quiz.id %}" class="btn btn-lg btn-outline-danger">
-                                    Quiz {{ forloop.counter}} 
-                                    {{ quiz.questions.count }} 
-                                    <br>
-                                    {{ quiz.points }} points
-                                    <br>
-                                    <i class="bi bi-arrow-right-circle-fill"></i>
-                                </a>
-                                {% endif %}
-                                {% empty %}
-                                <p>No quizzes available</p>
-                            {% endfor %}
-                        <form action="{% url 'lesson_completed' id=lesson.id %}" method="post">
-                            <button type="submit" class="btn btn-primary mt-3">
-                                <i class="bi bi-check-circle-fill"></i> Mark as Completed
-                            </button>
-                            {% csrf_token %}
-                            
-                            <a href="{% url 'lesson' %}" class="btn btn-secondary mt-3">
-                                <i class="bi bi-arrow-left-circle-fill"></i> Back
-                            </a>
-                        </form>
-                        
-
-                    </div>
-                </div>
-              
+                        <img src="{{ lesson.badge.image.url }}" alt="{{ lesson.badge.title }}" class="img-fluid rounded-circle" style="width: 80px; height:80px;">
+                              </a>
+                              <span class="text-white">
+                        Complete this chapter to get the badge
+                              </span>
+                             </div>
+                              {% endif %}
+                              </div>
+                           <div class="card-body">
+                {{lesson.content|safe}}
             </div>
-
-        </section><!-- /Courses Course Details Section -->
+            <div class="card-footer bg-primary text-white">
+                <p class="card-text">Quizzes:</p>
+                {% for quiz in quizzes %}
+                    {% if not quiz.completed %}
+                    <a href="{% url 'quiz_view' lid=lesson.id qid=quiz.id %}" class="btn btn-lg btn-outline-light">
+                        Quiz {{ forloop.counter}} 
+                        {{ quiz.questions.count }} 
+                        <br>
+                        {{ quiz.points }} points
+                        <br>
+                        <i class="bi bi-arrow-right-circle-fill"></i>
+                    </a>
+                    {% endif %}
+                {% empty %}
+                <p>No quizzes available</p>
+                {% endfor %}
+                {% if lesson.completed %}
+                <p class="text-success">This lesson has been completed.</p>
+                {% else %}
+                <form action="{% url 'lesson_completed' id=lesson.id %}" method="post">
+                    <button type="submit" class="btn btn-primary mt-3">
+                        <i class="bi bi-check-circle-fill"></i> Mark as Completed
+                    </button>
+                    {% csrf_token %}
+                </form>
+                {% endif %}
+                <a href="{% url 'lesson' %}" class="btn btn-secondary mt-3">
+                    <i class="bi bi-arrow-left-circle-fill"></i> Back
+                </a>
+            </div>
+        </div>
+    </div>
+ </section>
+        
 
       
 
-    </main>
+</main>
 
     {% include 'components/footer.html' %}
 
