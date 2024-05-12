@@ -223,6 +223,38 @@ def certificate_view(request):
     else:
         messages.error(request, 'You have not completed any lessons')
         return redirect('dashboard')
+    
+@login_required
+def progress(request):
+    user = request.user
+    lessons = LessonCompletion.objects.filter(user=user)
+    quizzes = QuizCompletion.objects.filter(user=user)
+    badges = BadgeAssignment.objects.filter(user=user)
+    # count total points
+    total_points = 0
+    for lesson in lessons:
+        total_points += lesson.lesson.points
+    for quiz in quizzes:
+        total_points += quiz.score
+    for badge in badges:
+        total_points += badge.badge.points
+    total_badges = badges.count()
+    total_lessons = lessons.count()
+    total_quizzes = quizzes.count()
+
+    # get all points available per category in lessons
+    all_lessons = Lesson.objects.all()
+ 
+    ctx = {
+        'lessons': lessons,
+        'quizzes': quizzes,
+        'badges': badges,
+        'total_points': total_points,
+        'total_badges': total_badges,
+        'total_lessons': total_lessons,
+        'total_quizzes': total_quizzes
+    }
+    return render(request, 'progress.html', ctx)
 
 
 

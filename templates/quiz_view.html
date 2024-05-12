@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Course Details</title>
+    <title>Quiz View</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -33,9 +33,17 @@
     <!-- Professional CSS -->
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-        }
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        background-image: url('') /* Add your image URL here */
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+    }
 
 
         .card {
@@ -45,7 +53,7 @@
         }
 
         .card-body {
-            padding: 40px;
+            padding: 70px;
         }
 
         .card-title {
@@ -77,44 +85,64 @@
             background-color: #0056b3;
             border-color: #0056b3;
         }
+        #progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: #007bff;
+        }
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #timer {
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
-<body>
-    <div class="container mt-5">
+<body style="background-image: url('/static/img/'); background-size: cover;"></body>>
+
+     <!-- New UI elements -->
+ <div id="progress-bar"></div>
+ <div id="score">Score: 0</div>
+ <div id="timer">Time: 30</div>
+ <div class="container mt-5">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body"  style=" background: url('/static/img/);">
                         <h2 class="card-title">{{ quiz.question }}</h2>
                         <form method="post">
                             {% csrf_token %}
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="radio" name="answer" id="option1"
-                                    value="{{quiz.option1}}" />
-                                <label class="form-check-label" for="option1"> {{quiz.option1}} </label>
+                            <div class="row">
+                                <div class="col-md-6 form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="answer" id="option1"
+                                        value="{{quiz.option1}}" />
+                                    <label class="form-check-label" for="option1"> {{quiz.option1}} </label>
+                                </div>
+                                <div class="col-md-6 form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="answer" id="option2"
+                                        value="{{quiz.option2}}" />
+                                    <label class="form-check-label" for="option2"> {{quiz.option2}} </label>
+                                </div>
                             </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="radio" name="answer" id="option2"
-                                    value="{{quiz.option2}}" />
-                                <label class="form-check-label" for="option2"> {{quiz.option2}} </label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="radio" name="answer" id="option3"
-                                    value="{{quiz.option3}}" />
-                                <label class="form-check-label" for="option3"> {{quiz.option3}} </label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="radio" name="answer" id="option4"
-                                    value="{{quiz.option4}}" />
-                                <label class="form-check-label" for="option4"> {{quiz.option4}} </label>
+                            <div class="row">
+                                <div class="col-md-6 form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="answer" id="option3"
+                                        value="{{quiz.option3}}" />
+                                    <label class="form-check-label" for="option3"> {{quiz.option3}} </label>
+                                </div>
+                                <div class="col-md-6 form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="answer" id="option4"
+                                        value="{{quiz.option4}}" />
+                                    <label class="form-check-label" for="option4"> {{quiz.option4}} </label>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 Submit
                             </button>
-
                         </form>
-
                     </div>
                 </div>
                 <div class="container">
@@ -124,9 +152,6 @@
             </div>
         </div>
     </div>
-
-
-    {% include 'components/footer.html' %}
 
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
@@ -145,6 +170,43 @@
 
     <!-- Main JS File -->
     <script src="/static/js/main.js"></script>
+    <script>
+        let score = 0;
+        let time = 30;
+        const totalQuestions = {{ total_questions }};
+        const progressBar = document.getElementById('progress-bar');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+
+        function updateUI() {
+            progressBar.style.width = `${(score / totalQuestions) * 100}%`;
+            scoreDisplay.textContent = `Score: ${score}`;
+            timerDisplay.textContent = `Time: ${time}`;
+        }
+
+        function startTimer() {
+            setInterval(function() {
+                time--;
+                updateUI();
+                if (time <= 0) {
+                    // Time's up, end the quiz
+                }
+            }, 1000);
+        }
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Check the answer and update the score if correct
+            // This will depend on how you're handling answer checking
+            if (/* answer is correct */) {
+                score++;
+            }
+            updateUI();
+            // Load the next question
+        });
+
+        startTimer();
+    </script>
 
 </body>
 
