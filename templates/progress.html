@@ -1,0 +1,205 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>View Lesson</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/static/img/favicon.png" rel="icon">
+    <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="/static/css/main.css" rel="stylesheet">
+
+    <style>
+        .page-title .heading {
+            padding: 20px 0 !important;
+            /* Adjust the padding to make the container smaller */
+            border-top: 1px solid rgba(var(--default-color-rgb), 0.1);
+        }
+
+        .page-title .heading .container {
+            padding-top: 20px !important;
+            /* Reduce top padding */
+            padding-bottom: 20px !important;
+            /* Reduce bottom padding */
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'components/menu.html' %}
+
+    <main class="main">
+        <section>
+            <div class="container py-5">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <b>Username:</b> {{user.username|upper}}
+                        </p>
+                        <div class="p-3 mb-4 bg-light rounded-3">
+                            <div class="container-fluid py-5">
+                                <h1 class="display-5 fw-bold">LEXIQUEST </h1>
+                                <p class="col-md-8 fs-4">
+                                    Dynamic progress tracker - Track your progress, earned badges, quizzes and lessons
+                                    completed.
+                                </p>
+                                <button class="btn btn-dark btn-lg" type="button">
+                                    <i class="bi bi-star-fill"></i>
+                                    {{total_points}} Points
+                                </button>
+                            </div>
+                            <!-- other details -->
+                            <div class="d-flex justify-content-between align-items-center py-1 px-5 bg-light border-1 border rounded-3">
+                                <span>{{total_badges}} Badges Earned</span> |
+                                <span>{{total_lessons}} Lessons Completed</span> |
+                                <span>{{total_quizzes}} Quizzes Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row">
+                            <h3>
+                                Lessons Completed
+                            </h3>
+                            {% for item in lessons %}
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.lesson.title }}</h5>
+                                        <p class="card-text">{{ item.lesson.points }} Points</p>
+                                    </div>
+                                    <div class="card-footer border-0 bg-transparent">
+                                        <b>
+                                            {{item.completed_at.date}}
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-md-12">
+                                <h3 class="text-start">No lessons completed yet!</h3>
+                                <div class="alert alert-info">
+                                    Please complete a lesson to view your progress.
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row">
+                            <h3>
+                                Quizzes Completed
+                            </h3>
+                            {% for item in quizzes %}
+                            <div class="col-md-12">
+                                <div class="card border-1">
+                                    <div class="card-body">
+                                        <div class="d-flex gap-2 justify-content-between">
+                                            <h5 class="card-title">Quiz #{{ item.quiz.id }}</h5>
+                                            <div class="">
+                                                <p class="lead m-0"><i class="bi bi-check-circle-fill text-success"></i>
+                                                    {{item.score}} points
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p>{{item.quiz.lesson.title}}</p>
+                                    </div>
+                                    <div class="card-footer border-0 bg-transparent">
+                                        <b>
+                                            {{item.completed_at.date}}
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-md-12">
+                                <h3 class="text-start">No quiz attempted yet!</h3>
+                                <div class="alert alert-info">
+                                    Please complete a quiz to view your progress.
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 p-5">
+                        <div class="row">
+                            <h3>
+                                Badges Earned
+                            </h3>
+                            {% for item in badges %}
+                            <div class="col-md-2">
+                                <div class="card">
+                                    <img src="{{item.badge.image.url}}" alt="" class="card-img">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">{{ item.badge.name }}</h5>
+                                        <p class="card-title text-center m-0">{{ item.badge.points }} points</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-md-12">
+                                <h3 class="text-start">No Badges earned yet!</h3>
+                                <div class="alert alert-info">
+                                    Please complete a lesson and quiz to earn badges.
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'components/footer.html' %}
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/vendor/php-email-form/validate.js"></script>
+    <script src="/static/vendor/aos/aos.js"></script>
+    <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="/static/js/main.js"></script>
+
+</body>
+
+</html>

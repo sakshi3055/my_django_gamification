@@ -13,6 +13,10 @@ urlpatterns = [
     path('badge/list', views.badge_list, name='badges'),
     path('badge/collected', views.badges_collected, name='badges_collected'),
     path('badge/<int:id>/view', views.badge_view, name='badge_view'),
-    path('certificate', views.certificate_view, name='certificate')
+    path('certificate', views.certificate_view, name='certificate'),
+    # progress
+    path('progress', views.progress, name='progress'),
+    path('certificate', views.certificate_view, name='certificate'),
+    path('certificate/<int:cid>/view', views.certificate_detail, name='certificate_detail'),
 ]
 

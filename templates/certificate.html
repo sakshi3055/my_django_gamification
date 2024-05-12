@@ -2,6 +2,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
       background-color: #f0f0f0;
       font-family: Arial, sans-serif;
     }
+
     .certificate {
       width: 800px;
       height: 600px;
@@ -23,86 +25,106 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       position: relative;
     }
+
     .logo {
       position: absolute;
       top: 20px;
       left: 20px;
     }
+
     .logo img {
       max-width: 150px;
     }
+
     .certificate-header {
       text-align: center;
       margin-bottom: 50px;
     }
+
     .certificate-title {
       font-size: 36px;
       color: #333;
       margin-bottom: 10px;
       text-transform: uppercase;
     }
+
     .certificate-subtitle {
       font-size: 24px;
       color: #555;
       margin-bottom: 30px;
     }
+
     .certificate-body {
       text-align: center;
       margin-bottom: 50px;
     }
+
     .certificate-body p {
       font-size: 20px;
       color: #666;
       margin-bottom: 20px;
     }
+
     .signature {
       position: absolute;
       bottom: 30px;
       left: 30px;
     }
+
     .signature img {
       max-width: 200px;
     }
+
     .decorative-line {
       width: 100%;
       height: 1px;
       background-color: #3498db;
       margin: 20px 0;
     }
+
     .seal {
       position: absolute;
       bottom: 20px;
       right: 20px;
     }
+
     .seal img {
       max-width: 100px;
     }
   </style>
 </head>
+
 <body>
-  <div class="certificate">
-    <div class="logo">
-      <img src="/static/img/Ologo.png" alt="Organization Logo">
+  <div class="">
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="table-responsive">
+            <table class="table border">
+              <thead>
+                <tr>
+                  <th scope="col">Course Name</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in certificates %}
+                <tr>
+                  <td>{{ item.course }}</td>
+                  <td>
+                    <a href="{% url 'certificate_detail' item.id %}" class="btn btn-primary">Download</a>
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
     </div>
-    <div class="certificate-header">
-      <h1 class="certificate-title">Certificate of Completion</h1>
-      <h2 class="certificate-subtitle">Awarded to</h2>
-      <p class="certificate-recipient">[Student Name]</p>
-    </div>
-    <div class="certificate-body">
-      <p>This certificate is awarded in recognition of the successful completion of the</p>
-      <p>[Course Name]</p>
-      <p>on [Date].</p>
-      <p>Issued by LexiQuest</p>
-    </div>
-    <div class="decorative-line"></div>
-    <div class="seal">
-      <img src="/static/img/sealimage.jpg" alt="Seal">
-    </div>
-    <div class="signature">
-      <img src="/static/img/authologo.jpg" alt="Authorized Signature">
-    </div>
-    
   </div>
 </body>
+
 </html>

@@ -12,6 +12,11 @@ class Badge(models.Model):
 
     def __str__(self):
         return self.image.url
+    
+class LessonCategory(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
 
 class Lesson(models.Model):
     LEVEL_CHOICES = [
@@ -27,9 +32,11 @@ class Lesson(models.Model):
     points = models.IntegerField(default=100)
     level = models.CharField(max_length=1, choices=LEVEL_CHOICES)
     image = models.ImageField(upload_to='courseapp/')
+    category = models.ForeignKey(LessonCategory, on_delete=models.CASCADE, default=1)
     badge = models.OneToOneField(Badge, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
+
         return self.title
     
 
@@ -75,3 +82,12 @@ class BadgeAssignment(models.Model):
 
     def __str__(self):
         return self.user.username + ' - ' + self.badge.name
+    
+class Certificate(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(LessonCategory, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='certificates')
+
+    def __str__(self):
+        return self.user.username + ' - ' + self.course.name

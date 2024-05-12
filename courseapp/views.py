@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.contrib import messages
 from .models import *
 from .forms import *
+from .certifier import certifier
+from accounts.models import Profile
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -210,19 +212,84 @@ def badge_view(request, id):
         }
         return render(request, 'badge_view.html', ctx)
     
+
 @login_required
-def certificate_view(request):
+def progress(request):
     user = request.user
     lessons = LessonCompletion.objects.filter(user=user)
-    if lessons:
-        ctx = {
-            'user': user,
-            'lessons': lessons
-        }
-        return render(request, 'certificate.html', ctx)
-    else:
-        messages.error(request, 'You have not completed any lessons')
-        return redirect('dashboard')
+    quizzes = QuizCompletion.objects.filter(user=user)
+    badges = BadgeAssignment.objects.filter(user=user)
+    # count total points
+    total_points = 0
+    for lesson in lessons:
+        total_points += lesson.lesson.points
+    for quiz in quizzes:
+        total_points += quiz.score
+    for badge in badges:
+        total_points += badge.badge.points
+    total_badges = badges.count()
+    total_lessons = lessons.count()
+    total_quizzes = quizzes.count()
 
+    # get all points available per category in lessons
+    all_lessons = Lesson.objects.all()
+ 
+    ctx = {
+        'lessons': lessons,
+        'quizzes': quizzes,
+        'badges': badges,
+        'total_points': total_points,
+        'total_badges': total_badges,
+        'total_lessons': total_lessons,
+        'total_quizzes': total_quizzes
+    }
+    return render(request, 'progress.html', ctx)
+
+from .models import Certificate
+
+def certificate_view(request):
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    full_name = f'{profile.first_name} {profile.last_name}'
+
+    lessons = LessonCompletion.objects.filter(user=user)
+    # get coursename where user has completed all lessons  of a particular category
+    courses = []
+    for lesson in lessons:
+        courses.append(lesson.lesson.category)
+    # get all courses 
+    all_courses = LessonCategory.objects.all()
+    completed_courses = []
+    for course in all_courses:
+        if course in courses:
+            completed_courses.append(course)
+    # get all certificates for the user
+    certificates = Certificate.objects.filter(user=user)
+    for course in completed_courses:
+        print(course)
+        category = LessonCategory.objects.get(name=course)
+        if Certificate.objects.filter(user=user, course=category).exists():
+            print('Certificate already exists')
+            continue
+        # generate certificate for each course with last completed date from the last lesson completed
+        last_lesson = LessonCompletion.objects.filter(user=user, lesson__category=course).last()
+        save_loc = certifier(full_name, course.name, last_lesson.completed_at)
+        save_loc = save_loc.split('media/')[1]
+        print(save_loc)
+        certificate = Certificate.objects.create(user=user, course=course, image=save_loc)
+        certificate.save()
+    ctx = {
+        'certificates': certificates
+    }
+    return render(request, 'certificate.html', ctx)
+
+def certificate_detail(request, cid):
+    certificate = get_object_or_404(Certificate, id=cid)
+    image = certificate.image.url
+    image = image.replace('django_ckeditor_5/', '')
+    ctx = {'certificate': certificate, 'image': image}
+    return render(request, 'certificate_detail.html', ctx)
+
+    
 
 
