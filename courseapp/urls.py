@@ -10,13 +10,17 @@ urlpatterns = [
     path('lesson/<int:lid>/q/<int:qid>/view', views.quiz_view, name='quiz_view'),
     path('lesson/<int:lid>/q/<int:qid>/completed', views.quiz_completed, name='quiz_completed'),
     path('quizes/<int:lid>/list', views.lesson_quiz_view, name='lesson_quizzes'),
-    path('badge/list', views.badge_list, name='badges'),
+    path('badge/list', views.badge_list, name='badge_list'),
     path('badge/collected', views.badges_collected, name='badges_collected'),
     path('badge/<int:id>/view', views.badge_view, name='badge_view'),
     path('certificate', views.certificate_view, name='certificate'),
     # progress
+<<<<<<< HEAD
     path('progress', views.progress, name='progress'),
     path('certificate', views.certificate_view, name='certificate'),
     path('certificate/<int:cid>/view', views.certificate_detail, name='certificate_detail'),
+=======
+    path('progress', views.progress, name='progress')
+>>>>>>> 8b33f2a10f4fa0187f8a93c26ca477f01cfb7911
 ]
 

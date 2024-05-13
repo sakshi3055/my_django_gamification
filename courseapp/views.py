@@ -217,6 +217,23 @@ def badge_view(request, id):
 def progress(request):
     user = request.user
     lessons = LessonCompletion.objects.filter(user=user)
+<<<<<<< HEAD
+=======
+    if lessons:
+        ctx = {
+            'user': user,
+            'lessons': lessons
+        }
+        return render(request, 'certificate.html', ctx)
+    else:
+        messages.error(request, 'You have not completed any lessons')
+        return redirect('dashboard')
+    
+@login_required
+def progress(request):
+    user = request.user
+    lessons = LessonCompletion.objects.filter(user=user)
+>>>>>>> 8b33f2a10f4fa0187f8a93c26ca477f01cfb7911
     quizzes = QuizCompletion.objects.filter(user=user)
     badges = BadgeAssignment.objects.filter(user=user)
     # count total points
@@ -245,6 +262,7 @@ def progress(request):
     }
     return render(request, 'progress.html', ctx)
 
+<<<<<<< HEAD
 from .models import Certificate
 
 def certificate_view(request):
@@ -291,5 +309,7 @@ def certificate_detail(request, cid):
     return render(request, 'certificate_detail.html', ctx)
 
     
+=======
+>>>>>>> 8b33f2a10f4fa0187f8a93c26ca477f01cfb7911
 
 

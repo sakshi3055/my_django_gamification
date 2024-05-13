@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Course Details</title>
+  <title>Dashboard</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -209,8 +209,8 @@ body {
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="fas fa-user"></i> Profile Management
+      <a class="nav-link" href="{% url 'progress' %}">
+        <i class="fas fa-user"></i> Student Progress
       </a>
     </li>
     <li class="nav-item">
@@ -219,8 +219,8 @@ body {
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="fas fa-certificate"></i> Badge Management
+      <a class="nav-link" href="{% url 'badge_list' %}">
+        <i class="fas fa-certificate"></i> View Badges
       </a>
     </li>
     <li class="nav-item">
@@ -250,9 +250,9 @@ body {
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-user"></i> Profile Management</h5>
-            <p class="card-text">Here you can manage user profiles.</p>
-            <a href="#" class="btn btn-primary">Go to Profiles</a>
+            <h5 class="card-title"><i class="fas fa-user"></i> Student Progress</h5>
+            <p class="card-text">Here you can see your progress</p>
+            <a href="{% url 'progress' %}" class="btn btn-primary">Go to Profiles</a>
           </div>
         </div>
       </div>
@@ -271,9 +271,9 @@ body {
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-certificate"></i> Badge Management</h5>
+            <h5 class="card-title"><i class="fas fa-certificate"></i> View Badges</h5>
             <p class="card-text">Manage badges and rewards here.</p>
-            <a href="#" class="btn btn-primary">Go to Badges</a>
+            <a href="{% url 'badge_list' %}" class="btn btn-primary">Go to Badges</a>
           </div>
         </div>
       </div>
