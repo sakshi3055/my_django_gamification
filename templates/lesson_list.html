@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Course Details</title>
+    <title>Lessons List</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -41,25 +41,6 @@
             padding-bottom: 20px !important;
         }
 
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #preloader img {
-            width: 100px;
-            /* Adjust the width of the preload GIF */
-            height: 100px;
-            /* Adjust the height of the preload GIF */
-        }
 
         @keyframes spin {
             0% {
@@ -81,10 +62,6 @@
 
 <body>
 
-    <div id="preloader"> <!-- Preloader displayed by default -->
-        <img src="/static/img/preload.gif" alt="Loading...">
-    </div>
-
     {% include 'components/menu.html' %}
 
     <main class="main">
@@ -95,7 +72,7 @@
                 <div class="container">
                     <div class="row d-flex justify-content-center text-center">
                         <div class="col-lg-8">
-                            <h1>Lesson Details</h1>
+                            <h1>Lessons List</h1>
                             <p class="mb-0"></p>
                         </div>
                     </div>
@@ -105,7 +82,7 @@
                 <div class="container">
                     <ol>
                         <li><a href="{% url 'home' %}">Home</a></li>
-                        <li class="current">Lesson Details</li>
+                        <li class="current">Lessons List</li>
                     </ol>
                 </div>
             </nav>
@@ -278,19 +255,6 @@
 
     <!-- Main JS File -->
     <script src="/static/js/main.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to hide the preloader after a specified duration
-            function hidePreloader() {
-                var preloader = document.getElementById('preloader');
-                preloader.style.display = 'none';
-            }
-
-            // Call the function to hide the preloader after 5 seconds (5000 milliseconds)
-            setTimeout(hidePreloader, 5000); // Adjust the duration as needed (in milliseconds)
-        });
-    </script>
 
 </body>
 
