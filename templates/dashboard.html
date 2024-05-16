@@ -224,13 +224,18 @@ body {
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="fas fa-trophy"></i> Achievement Management
+      <a class="nav-link" href="{% url 'certificate' %}">
+        <i class="fas fa-trophy"></i> Certificate
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{% url 'create_profile' %}">
         <i class="fas fa-edit"></i> Edit Profile
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'home' %}">
+        <i class="fas fa-edit"></i> Home
       </a>
     </li>
     <li class="nav-item">
@@ -280,9 +285,9 @@ body {
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-trophy"></i> Achievement Management</h5>
-            <p class="card-text">Track and manage user achievements.</p>
-            <a href="#" class="btn btn-primary">Go to Achievements</a>
+            <h5 class="card-title"><i class="fas fa-trophy"></i> View Certificate</h5>
+            <p class="card-text">Track Certificate</p>
+            <a href="{% url 'certificate' %}" class="btn btn-primary">Go to Certificate</a>
           </div>
         </div>
       </div>
